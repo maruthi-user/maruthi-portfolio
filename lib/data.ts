@@ -9,7 +9,7 @@ export const profile = {
   linkedin: "https://www.linkedin.com/in/maruthi-y-5512a4423",
   // Put the updated resume PDF in /public and set e.g. "/Maruthi_Yenumula_Resume.pdf".
   // While this is null the "Download resume" buttons are hidden.
-  resumeUrl: null as string | null,
+  resumeUrl: "/Maruthi_Yenumula_Resume.pdf" as string | null,
   tagline:
     "I build role-based web apps with Java, Spring Boot and React: clean APIs, careful validation and interfaces people can actually use.",
   about: [
@@ -31,19 +31,33 @@ export const experience = {
   period: "Feb 2026 – Present",
   duration: "8+ months",
   summary:
-    "Working on two client-facing systems in parallel since 26 Feb 2026, in Agile sprints with backend, QA and product teams.",
+    "Working on client-facing systems since 26 Feb 2026, in Agile sprints with backend, QA and product teams: the company HRMS (frontend and API integration, plus the Task Management module end to end) and a Budget Estimation System.",
   projects: [
     {
       slug: "hrms",
       name: "HRMS",
-      subtitle: "Human Resource Management System",
+      subtitle: "Human Resource Management System · frontend and API integration",
       href: "/case-studies/hrms",
-      stack: ["React.js", "Next.js", "Tailwind CSS", "Spring Boot REST APIs", "Swagger / OpenAPI"],
+      stack: ["React 19", "Vite", "Redux Toolkit / RTK Query", "Tailwind CSS", "Radix UI", "Spring Boot REST APIs", "Swagger / OpenAPI"],
       bullets: [
-        "Built frontend workflows for Leave Management, Attendance and Employee Advances, integrated with the backend REST APIs.",
-        "Implemented multi-stage approval states with record visibility scoped to employee, manager and administrator roles.",
-        "Integrated API-driven validation and status transitions, with live status updates across responsive dashboards.",
-        "Used Swagger/OpenAPI contracts with reusable React components so forms and backend payloads stay aligned.",
+        "Built the React screens for Leave and Comp-off, Attendance, Employee Advances, Claims, Daily Status Reports and the HR dashboard, integrated with the Spring Boot REST APIs, and contributed to Users, Onboarding and Reports.",
+        "Implemented role-based UI for six roles (Employee, Lead, Approver, HR, Admin, Super Admin): a permission map decides which apps, sidebar modules, tabs and actions each person sees.",
+        "Built the approval flows on the client: Pending Approval queues with live count badges, and scoped views (My / Team / All) that match the data scope the backend returns.",
+        "Shared building blocks: a reusable data table with column reordering and saved layouts, a generic filter component, server-side pagination, Excel export with error handling, and a processing lock that blocks double submits.",
+        "Handled the session end to end: JWT login, automatic logout and a session-expired modal when the token expires or the API returns 401.",
+      ],
+    },
+    {
+      slug: "task-management",
+      name: "Task Management",
+      subtitle: "Module inside the HRMS · backend and frontend",
+      href: "/case-studies/task-management",
+      stack: ["Java 17", "Spring Boot", "Spring Security", "Spring Data JPA", "Specifications", "React 19", "RTK Query", "Tailwind CSS"],
+      bullets: [
+        "Built both sides of the module: REST APIs and role rules in Spring Boot, and six views in React (Summary, List, Board, Calendar, Gantt, Workload) plus a Master Data tab.",
+        "Designed the task lifecycle (Defined, In Progress, Executed, Reviewed, Re-submitted, Approved) as a state machine, enforced on the server and mirrored in the UI so buttons never offer a move the API would refuse.",
+        "Wrote the role and ownership rules once in a server-side authorization class: who can see, edit, comment on and move a task depends on role, assignee, reviewer, approver and the reporting hierarchy.",
+        "Added recurring tasks, an activity log per task, duplicate, Excel export and task reports in the reporting engine, with dynamic JPA Specifications and paginated queries for the Board columns.",
       ],
     },
     {

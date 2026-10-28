@@ -12,6 +12,9 @@ type Props = {
   stack: string[];
   learned: string;
   mockTitle: string;
+  mockNote?: string;
+  /** Extra full-width blocks (e.g. roles and permissions), shown after "The hard parts". */
+  sections?: { title: string; intro?: string; node: ReactNode }[];
   children: ReactNode;
 };
 
@@ -64,10 +67,18 @@ export default function CaseStudy(p: Props) {
         </div>
       </section>
 
+      {p.sections?.map((s) => (
+        <section key={s.title} className="mt-14">
+          <h2 className="text-xl font-semibold">{s.title}</h2>
+          {s.intro && <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted">{s.intro}</p>}
+          <div className="mt-4">{s.node}</div>
+        </section>
+      ))}
+
       <section className="mt-14">
         <h2 className="text-xl font-semibold">{p.mockTitle}</h2>
         <p className="mt-2 text-sm text-muted">
-          An illustrative mock-up I built for this page, using sample data. It is not a screen from the client&apos;s system.
+          {p.mockNote ?? "An illustrative mock-up I built for this page, using sample data. It is not a screen from the client's system."}
         </p>
         <div className="mt-4">{p.children}</div>
       </section>
