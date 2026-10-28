@@ -1,0 +1,64 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #f6f7f3;
+  --surface: #ffffff;
+  --surface-2: #edf0e8;
+  --fg: #14201a;
+  --muted: #566860;
+  --line: #d9dfd3;
+  --accent: #0e7650;
+  --accent-fg: #ffffff;
+  --gold: #a9701a;
+}
+
+.dark {
+  --bg: #07110e;
+  --surface: #0d1b16;
+  --surface-2: #12241d;
+  --fg: #e8f0ea;
+  --muted: #94a89c;
+  --line: #1f352b;
+  --accent: #34d399;
+  --accent-fg: #04130d;
+  --gold: #e5b95c;
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-surface-2: var(--surface-2);
+  --color-fg: var(--fg);
+  --color-muted: var(--muted);
+  --color-line: var(--line);
+  --color-accent: var(--accent);
+  --color-accent-fg: var(--accent-fg);
+  --color-gold: var(--gold);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+  --font-serif: var(--font-serif-display);
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: var(--font-geist-sans), system-ui, sans-serif;
+}
+
+::selection {
+  background: var(--accent);
+  color: var(--accent-fg);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
