@@ -10,6 +10,7 @@ export const metadata: Metadata = {
 export default function BesCaseStudy() {
   return (
     <CaseStudy
+      slug="bes"
       title="Budget Estimation System"
       subtitle="Service-wise budget estimates and payment tracking for a retail manufacturer client."
       meta={[

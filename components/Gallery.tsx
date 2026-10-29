@@ -1,15 +1,25 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState } from "react";
+import { useRef, useState, useSyncExternalStore } from "react";
 import type { Shot } from "@/lib/data";
 
 type Props = { shots: Shot[]; alt: string; animated?: boolean };
 
+const reduceQuery = "(prefers-reduced-motion: reduce)";
+function subscribeReduced(cb: () => void) {
+  const mq = matchMedia(reduceQuery);
+  mq.addEventListener("change", cb);
+  return () => mq.removeEventListener("change", cb);
+}
+
 export default function Gallery({ shots, alt, animated }: Props) {
   const [i, setI] = useState(0);
   const dialog = useRef<HTMLDialogElement>(null);
+  const reduced = useSyncExternalStore(subscribeReduced, () => matchMedia(reduceQuery).matches, () => false);
   const shot = shots[i];
+  // Visitors who ask for reduced motion get the still frame instead of the animation.
+  const src = reduced && shot.still ? shot.still : shot.src;
   const many = shots.length > 1;
 
   const go = (d: number) => setI((v) => (v + d + shots.length) % shots.length);
@@ -24,8 +34,8 @@ export default function Gallery({ shots, alt, animated }: Props) {
           aria-label="Enlarge image"
         >
           <Image
-            key={shot.src}
-            src={shot.src}
+            key={src}
+            src={src}
             width={shot.w}
             height={shot.h}
             alt={`${alt}: ${shot.caption}`}
@@ -72,12 +82,33 @@ export default function Gallery({ shots, alt, animated }: Props) {
       <dialog
         ref={dialog}
         onClick={(e) => e.target === dialog.current && dialog.current?.close()}
+        onKeyDown={(e) => {
+          if (!many) return;
+          if (e.key === "ArrowLeft") go(-1);
+          if (e.key === "ArrowRight") go(1);
+        }}
+        aria-label={`${alt} screenshots`}
         className="m-auto max-h-[92vh] max-w-[94vw] rounded-2xl border border-line bg-surface p-2 backdrop:bg-black/70"
       >
-        <form method="dialog" className="flex justify-end pb-1">
-          <button className="rounded-md px-3 py-1 text-sm text-muted hover:text-fg">Close</button>
-        </form>
-        <Image src={shot.src} width={shot.w} height={shot.h} alt={`${alt}: ${shot.caption}`} unoptimized className="max-h-[80vh] w-auto max-w-full rounded-lg object-contain" />
+        <div className="flex items-center justify-between pb-1">
+          {many ? (
+            <div className="flex items-center gap-1">
+              <button type="button" onClick={() => go(-1)} aria-label="Previous screenshot" className="grid size-9 place-items-center rounded-full border border-line text-lg text-muted hover:text-fg">
+                ‹
+              </button>
+              <button type="button" onClick={() => go(1)} aria-label="Next screenshot" className="grid size-9 place-items-center rounded-full border border-line text-lg text-muted hover:text-fg">
+                ›
+              </button>
+              <span className="ml-2 text-xs text-muted">{i + 1}/{shots.length}</span>
+            </div>
+          ) : (
+            <span />
+          )}
+          <form method="dialog">
+            <button className="rounded-md px-3 py-1 text-sm text-muted hover:text-fg">Close</button>
+          </form>
+        </div>
+        <Image src={src} width={shot.w} height={shot.h} alt={`${alt}: ${shot.caption}`} unoptimized className="max-h-[78vh] w-auto max-w-full rounded-lg object-contain" />
         <p className="px-2 pt-2 text-sm text-muted">{shot.caption}</p>
       </dialog>
     </div>

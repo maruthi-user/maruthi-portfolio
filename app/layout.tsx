@@ -3,7 +3,7 @@ import { Geist, Geist_Mono, Instrument_Serif } from "next/font/google";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
-import { profile } from "@/lib/data";
+import { profile, tenure } from "@/lib/data";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -24,7 +24,7 @@ const serif = Instrument_Serif({
 
 export const metadata: Metadata = {
   title: `${profile.name} | ${profile.role}`,
-  description: `${profile.name} is a ${profile.role} in ${profile.location}. 8+ months building an HRMS and a budget estimation system for clients, plus F2Home, Arogya Mitra and Lotus UI.`,
+  description: `${profile.name} is a ${profile.role} in ${profile.location}. ${tenure} building an HRMS and a budget estimation system for clients, plus F2Home, Arogya Mitra and Lotus UI.`,
 };
 
 // Sets the theme class before first paint so there is no light/dark flash.
@@ -41,8 +41,14 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
         <script dangerouslySetInnerHTML={{ __html: themeScript }} />
       </head>
       <body className="flex min-h-full flex-col">
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-50 focus:rounded-full focus:bg-accent focus:px-4 focus:py-2 focus:text-sm focus:font-medium focus:text-accent-fg"
+        >
+          Skip to content
+        </a>
         <Nav />
-        <main className="flex-1">{children}</main>
+        <main id="main" className="flex-1">{children}</main>
         <Footer />
       </body>
     </html>

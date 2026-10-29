@@ -1,3 +1,4 @@
+import Image from "next/image";
 import Link from "next/link";
 import ProjectShowcase from "@/components/ProjectShowcase";
 import { Btn, Chip, Section } from "@/components/ui";
@@ -53,7 +54,18 @@ function Hero() {
 
         <aside className="rounded-3xl border border-line bg-surface p-6 shadow-sm" aria-label="At a glance">
           <div className="flex items-center gap-4">
-            <div className="grid size-16 place-items-center rounded-2xl bg-accent font-serif text-3xl text-accent-fg">MY</div>
+            {profile.photo ? (
+              <Image
+                src={profile.photo}
+                width={128}
+                height={128}
+                alt={`Portrait of ${profile.name}`}
+                priority
+                className="size-16 rounded-2xl object-cover"
+              />
+            ) : (
+              <div className="grid size-16 place-items-center rounded-2xl bg-accent font-serif text-3xl text-accent-fg">MY</div>
+            )}
             <div>
               <p className="text-lg font-semibold">{profile.name}</p>
               <p className="text-sm text-muted">{profile.role}</p>
@@ -66,7 +78,9 @@ function Hero() {
             </div>
             <div>
               <dt className="font-mono text-xs uppercase tracking-wider text-gold">Education</dt>
-              <dd className="mt-1 text-muted">MCA, Mohan Babu University (2025)</dd>
+              <dd className="mt-1 text-muted">
+                {education[0].short}, {education[0].school.split(",")[0]} ({education[0].period.slice(-4)})
+              </dd>
             </div>
             <div>
               <dt className="font-mono text-xs uppercase tracking-wider text-gold">Core stack</dt>
@@ -152,13 +166,26 @@ function Projects() {
 function Skills() {
   return (
     <Section id="skills" eyebrow="Skills" title="Tools I work with">
+      <p className="-mt-6 mb-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted">
+        <span className="inline-flex items-center gap-2">
+          <span className="rounded-full border border-accent bg-surface px-3 py-1 text-xs text-fg">Solid</span>
+          used in shipped projects or daily work
+        </span>
+        <span className="inline-flex items-center gap-2">
+          <Chip tone="familiar">Familiar</Chip>
+          learned or used on a smaller scale
+        </span>
+      </p>
       <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
         {skills.map((g) => (
           <div key={g.group} className="rounded-2xl border border-line bg-surface p-5">
             <h3 className="font-mono text-xs uppercase tracking-wider text-gold">{g.group}</h3>
             <ul className="mt-3 flex flex-wrap gap-2">
-              {g.items.map((s) => (
-                <li key={s}><Chip>{s}</Chip></li>
+              {g.strong.map((s) => (
+                <li key={s}><Chip tone="strong">{s}</Chip></li>
+              ))}
+              {g.familiar.map((s) => (
+                <li key={s}><Chip tone="familiar">{s}</Chip></li>
               ))}
             </ul>
           </div>

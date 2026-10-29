@@ -1,5 +1,10 @@
 // All portfolio content lives here. Edit this file to update the site.
 
+// Update this one value as your internship time grows; the hero stat, the experience card,
+// the About text and the page description all read from it.
+const tenureMonths = "8+";
+export const tenure = `${tenureMonths} months`;
+
 export const profile = {
   name: "Maruthi Yenumula",
   role: "Java Full Stack Developer",
@@ -7,21 +12,24 @@ export const profile = {
   email: "maruthiy310@gmail.com",
   github: "https://github.com/maruthi-user",
   linkedin: "https://www.linkedin.com/in/maruthi-y-5512a4423",
+  // Put your photo in /public (square or portrait, at least 600x600) and set e.g. "/profile.jpg".
+  // While this is null the hero shows the "MY" monogram instead.
+  photo: null as string | null,
   // Put the updated resume PDF in /public and set e.g. "/Maruthi_Yenumula_Resume.pdf".
   // While this is null the "Download resume" buttons are hidden.
   resumeUrl: "/Maruthi_Yenumula_Resume.pdf" as string | null,
   tagline:
     "I build role-based web apps with Java, Spring Boot and React: clean APIs, careful validation and interfaces people can actually use.",
   about: [
-    "I'm an MCA graduate (2025) who has spent the last 8+ months as an intern at First Partner Consulting, working on two client-facing systems at the same time: an HRMS and a Budget Estimation System.",
+    `I'm an MCA graduate (2025) who has spent the last ${tenure} as an intern at First Partner Consulting, working on two client-facing systems at the same time: an HRMS and a Budget Estimation System.`,
     "Outside work I build my own products end to end: a farmer-to-customer marketplace with OTP login, a Telugu audio-first health app for villages, and a small animation study. I like projects where the user is not a developer.",
   ],
 };
 
 export const stats = [
-  { value: "8+", label: "months of real client work" },
+  { value: tenureMonths, label: "months of real client work" },
   { value: "2", label: "client systems in parallel" },
-  { value: "3", label: "personal projects shipped" },
+  { value: "3", label: "personal projects built" },
 ];
 
 export const experience = {
@@ -29,7 +37,7 @@ export const experience = {
   role: "Software Developer Intern / Trainee",
   location: "Hyderabad, India",
   period: "Feb 2026 – Present",
-  duration: "8+ months",
+  duration: tenure,
   summary:
     "Working on client-facing systems since 26 Feb 2026, in Agile sprints with backend, QA and product teams: the company HRMS (frontend and API integration, plus the Task Management module end to end) and a Budget Estimation System.",
   projects: [
@@ -81,6 +89,8 @@ export type Shot = {
   w: number;
   h: number;
   caption: string;
+  /** Static frame shown instead of an animation when the visitor prefers reduced motion. */
+  still?: string;
 };
 
 export type Project = {
@@ -193,27 +203,39 @@ export const projects: Project[] = [
     live: "https://lotus-ui-fx6c.vercel.app/",
     animated: true,
     shots: [
-      { src: "/projects/lotus/bloom.webp", w: 800, h: 402, caption: "The bloom animation, recorded from the live site" },
+      { src: "/projects/lotus/bloom.webp", still: "/projects/lotus/still.webp", w: 720, h: 362, caption: "The bloom animation, recorded from the live site" },
     ],
   },
 ];
 
-export const skills = [
-  { group: "Backend", items: ["Java 17", "Spring Boot", "Spring Security (JWT)", "Spring Data JPA", "Hibernate", "REST APIs", "Bean Validation", "Flyway", "Swagger / OpenAPI", "Maven"] },
-  { group: "Frontend", items: ["React.js", "Next.js", "Redux Toolkit / RTK Query", "Tailwind CSS", "Vite", "JavaScript (ES6+)", "HTML5", "CSS3"] },
-  { group: "Databases", items: ["PostgreSQL", "MySQL", "MongoDB", "SQL"] },
-  { group: "DevOps & Cloud", items: ["Docker", "Kubernetes", "Jenkins", "GitHub Actions", "AWS EC2 / ELB / S3", "Render", "CI/CD"] },
-  { group: "Testing & Tools", items: ["JUnit", "Postman", "Git & GitHub", "VS Code", "Agile / Scrum"] },
-  { group: "GenAI", items: ["LangChain", "LLM API integration", "Prompt engineering"] },
+// `strong` = used in my shipped projects or day-to-day work. `familiar` = learned or used in a smaller way.
+// Move a skill between the two lists to change how it is shown.
+export const skills: { group: string; strong: string[]; familiar: string[] }[] = [
+  {
+    group: "Backend",
+    strong: ["Java 17", "Spring Boot", "Spring Security (JWT)", "Spring Data JPA", "Hibernate", "REST APIs", "Bean Validation", "Flyway", "Swagger / OpenAPI"],
+    familiar: ["Maven"],
+  },
+  {
+    group: "Frontend",
+    strong: ["React.js", "Redux Toolkit / RTK Query", "Tailwind CSS", "Vite", "JavaScript (ES6+)", "HTML5", "CSS3"],
+    familiar: ["Next.js"],
+  },
+  { group: "Databases", strong: ["PostgreSQL", "SQL"], familiar: ["MySQL", "MongoDB"] },
+  { group: "DevOps & Cloud", strong: ["Docker", "GitHub Actions", "CI/CD"], familiar: ["Kubernetes", "Jenkins", "AWS EC2 / ELB / S3", "Render"] },
+  { group: "Testing & Tools", strong: ["JUnit", "Postman", "Git & GitHub", "Agile / Scrum"], familiar: ["VS Code"] },
+  { group: "GenAI", strong: [], familiar: ["LangChain", "LLM API integration", "Prompt engineering"] },
 ];
 
 export const education = [
   {
+    short: "MCA",
     degree: "Master of Computer Applications (MCA)",
     school: "Mohan Babu University, Tirupati",
     period: "2023 – 2025",
   },
   {
+    short: "B.Sc Computer Science",
     degree: "Bachelor of Science in Computer Science",
     school: "Acharya Nagarjuna University, Guntur",
     period: "2020 – 2023",

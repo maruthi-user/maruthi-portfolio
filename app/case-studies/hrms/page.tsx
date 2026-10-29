@@ -12,6 +12,7 @@ export const metadata: Metadata = {
 export default function HrmsCaseStudy() {
   return (
     <CaseStudy
+      slug="hrms"
       title="HRMS"
       subtitle="A role-based Human Resource Management System for First Partner Consulting."
       meta={[

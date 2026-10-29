@@ -10,8 +10,14 @@ export function Section({ id, eyebrow, title, children }: { id: string; eyebrow:
   );
 }
 
-export function Chip({ children }: { children: ReactNode }) {
-  return <span className="rounded-full border border-line bg-surface px-3 py-1 text-xs text-muted">{children}</span>;
+const chipTone = {
+  default: "border-line text-muted",
+  strong: "border-accent text-fg",
+  familiar: "border-dashed border-line text-muted",
+};
+
+export function Chip({ children, tone = "default" }: { children: ReactNode; tone?: keyof typeof chipTone }) {
+  return <span className={`rounded-full border bg-surface px-3 py-1 text-xs ${chipTone[tone]}`}>{children}</span>;
 }
 
 type BtnProps = { href: string; children: ReactNode; variant?: "solid" | "outline"; external?: boolean };

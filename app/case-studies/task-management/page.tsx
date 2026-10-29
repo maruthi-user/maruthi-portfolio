@@ -11,6 +11,7 @@ export const metadata: Metadata = {
 export default function TaskManagementCaseStudy() {
   return (
     <CaseStudy
+      slug="task-management"
       title="Task Management"
       subtitle="A task and review module inside the HRMS, built end to end: Spring Boot API and React interface."
       meta={[
