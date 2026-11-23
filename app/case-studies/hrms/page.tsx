@@ -3,23 +3,23 @@ import CaseStudy from "@/components/CaseStudy";
 import HrmsMock from "@/components/HrmsMock";
 import InfoGrid from "@/components/InfoGrid";
 import RoleAccessMock from "@/components/RoleAccessMock";
+import TaskWorkflowMock from "@/components/TaskWorkflowMock";
 
 export const metadata: Metadata = {
   title: "HRMS case study | Maruthi Yenumula",
-  description: "A role-based HRMS: leave, attendance, advances, claims and approvals, with permissions that shape every screen.",
+  description: "A role-based HRMS: leave, attendance, advances, claims and approvals, plus a full-stack Task Management module.",
 };
 
 export default function HrmsCaseStudy() {
   return (
     <CaseStudy
-      slug="hrms"
       title="HRMS"
       subtitle="A role-based Human Resource Management System for First Partner Consulting."
       meta={[
         { label: "My role", value: "Software Developer Intern / Trainee" },
         { label: "Period", value: "Feb 2026 – Present" },
         { label: "Focus", value: "Frontend, API integration, role-based UI" },
-        { label: "Also", value: "Task Management, built full stack (separate case study)" },
+        { label: "Full-stack module", value: "Task Management" },
       ]}
       problem="One company, six kinds of user. An employee applies for leave, a team lead approves it, HR looks across the company and an admin sees everything. Leave, attendance, advances and claims each move through approval states, and every person should see only the records and buttons that belong to their role, with the screens always in step with the status the backend holds."
       myPart={[
@@ -40,6 +40,23 @@ export default function HrmsCaseStudy() {
       ]}
       sections={[
         {
+          id: "task-management",
+          title: "Task Management",
+          intro: "I built the Spring Boot API and React interface for the HRMS task module. Explore how role, ownership and status change which actions are available. This demo uses sample data.",
+          node: (
+            <>
+              <TaskWorkflowMock />
+              <div className="mt-5">
+                <InfoGrid cols={3} items={[
+                  { title: "Server-enforced workflow", text: "Spring Security and a dedicated authorization class validate each status transition by role, ownership and reporting relationship." },
+                  { title: "Six React views", text: "Summary, List, Board, Calendar, Gantt and Workload share a data layer that fetches what each view needs." },
+                  { title: "Day-to-day operations", text: "Recurring tasks, activity logs, filtered Excel exports and a task catalogue support regular team workflows." },
+                ]} />
+              </div>
+            </>
+          ),
+        },
+        {
           title: "How the app is put together",
           intro: "A Vite + React 19 single-page app with a Spring Boot API behind it. Everything below the shell is lazy-loaded, so a user only downloads the modules they open.",
           node: (
@@ -57,11 +74,13 @@ export default function HrmsCaseStudy() {
           ),
         },
         {
+          id: "permissions",
           title: "Roles, permissions and what each person sees",
           intro: "Six roles come back from the API after login. A permission map lists what each can do, and the UI reads it to show or hide apps, modules, tabs and buttons. Pick a role to see the same app reshape itself.",
           node: <RoleAccessMock />,
         },
       ]}
+      mockId="approvals"
       mockTitle="Follow a request through its statuses"
       mockNote="An illustrative mock-up I built for this page. The status names are the ones the system uses; there is no real employee data."
       stack={["React 19", "Vite", "Redux Toolkit / RTK Query", "Tailwind CSS", "Radix UI", "react-hook-form", "Recharts", "Spring Boot REST APIs", "Swagger / OpenAPI"]}

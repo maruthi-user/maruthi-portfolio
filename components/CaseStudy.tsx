@@ -1,11 +1,8 @@
-import Link from "next/link";
 import type { ReactNode } from "react";
+import CinematicMotion from "./CinematicMotion";
 import { Chip } from "./ui";
-import { experience } from "@/lib/data";
 
 type Props = {
-  /** Matches the slug in lib/data.ts; used to link to the next case study. */
-  slug: string;
   title: string;
   subtitle: string;
   meta: { label: string; value: string }[];
@@ -14,25 +11,25 @@ type Props = {
   hardParts: { title: string; text: string }[];
   stack: string[];
   learned: string;
+  mockId: string;
   mockTitle: string;
   mockNote?: string;
-  /** Extra full-width blocks (e.g. roles and permissions), shown after "The hard parts". */
-  sections?: { title: string; intro?: string; node: ReactNode }[];
+  sections?: { id?: string; title: string; intro?: string; node: ReactNode }[];
   children: ReactNode;
 };
 
+const projectsHref = "/#projects";
+
 export default function CaseStudy(p: Props) {
-  const all = experience.projects;
-  const next = all[(all.findIndex((x) => x.slug === p.slug) + 1) % all.length];
-
   return (
-    <article className="mx-auto max-w-5xl px-4 py-12 sm:px-6 sm:py-20">
-      <Link href="/#experience" className="text-sm text-muted hover:text-fg">← Back to experience</Link>
+    <CinematicMotion>
+    <article className="case-study">
+      <a href={projectsHref} className="text-sm text-muted hover:text-fg">Back to selected work</a>
 
-      <header className="mt-6">
-        <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">Case study</p>
-        <h1 className="mt-2 font-serif text-5xl tracking-tight sm:text-6xl">{p.title}</h1>
-        <p className="mt-3 text-lg text-muted">{p.subtitle}</p>
+      <header className="case-hero mt-6">
+        <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">Client case study</p>
+        <h1 data-reveal="chars" className="mt-2 font-serif text-6xl tracking-tight sm:text-8xl">{p.title}</h1>
+        <p data-reveal="lines" className="mt-3 text-lg text-muted">{p.subtitle}</p>
         <dl className="mt-8 grid grid-cols-2 gap-4 rounded-2xl border border-line bg-surface p-5 sm:grid-cols-4">
           {p.meta.map((m) => (
             <div key={m.label}>
@@ -41,12 +38,18 @@ export default function CaseStudy(p: Props) {
             </div>
           ))}
         </dl>
+        <nav className="mt-7 flex flex-wrap gap-x-6 gap-y-3 text-sm" aria-label="Case study sections">
+          {p.sections?.filter((section) => section.id).map((section) => (
+            <a key={section.id} href={`#${section.id}`} className="portfolio-text-link">{section.title}</a>
+          ))}
+          <a href={`#${p.mockId}`} className="portfolio-text-link">Approval workflows</a>
+        </nav>
       </header>
 
       <section className="mt-12 grid gap-10 lg:grid-cols-2">
         <div>
           <h2 className="text-xl font-semibold">The problem</h2>
-          <p className="mt-3 leading-relaxed text-muted">{p.problem}</p>
+          <p data-reveal="lines" className="case-copy mt-3">{p.problem}</p>
         </div>
         <div>
           <h2 className="text-xl font-semibold">What I built</h2>
@@ -61,6 +64,22 @@ export default function CaseStudy(p: Props) {
         </div>
       </section>
 
+      {p.sections?.map((s) => (
+        <section key={s.title} id={s.id} className="mt-14">
+          <h2 data-reveal="chars" className="text-xl font-semibold">{s.title}</h2>
+          {s.intro && <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted">{s.intro}</p>}
+          <div className="mt-4">{s.node}</div>
+        </section>
+      ))}
+
+      <section id={p.mockId} className="mt-14">
+        <h2 className="text-xl font-semibold">{p.mockTitle}</h2>
+        <p className="mt-2 text-sm text-muted">
+          {p.mockNote ?? "An illustrative mock-up I built for this page, using sample data. It is not a screen from the client's system."}
+        </p>
+        <div className="mt-4">{p.children}</div>
+      </section>
+
       <section className="mt-14">
         <h2 className="text-xl font-semibold">The hard parts</h2>
         <div className="mt-4 grid gap-4 sm:grid-cols-2">
@@ -71,22 +90,6 @@ export default function CaseStudy(p: Props) {
             </div>
           ))}
         </div>
-      </section>
-
-      {p.sections?.map((s) => (
-        <section key={s.title} className="mt-14">
-          <h2 className="text-xl font-semibold">{s.title}</h2>
-          {s.intro && <p className="mt-2 max-w-3xl text-sm leading-relaxed text-muted">{s.intro}</p>}
-          <div className="mt-4">{s.node}</div>
-        </section>
-      ))}
-
-      <section className="mt-14">
-        <h2 className="text-xl font-semibold">{p.mockTitle}</h2>
-        <p className="mt-2 text-sm text-muted">
-          {p.mockNote ?? "An illustrative mock-up I built for this page, using sample data. It is not a screen from the client's system."}
-        </p>
-        <div className="mt-4">{p.children}</div>
       </section>
 
       <section className="mt-14 grid gap-10 lg:grid-cols-2">
@@ -104,13 +107,8 @@ export default function CaseStudy(p: Props) {
         </div>
       </section>
 
-      <nav className="mt-14 border-t border-line pt-8" aria-label="More case studies">
-        <p className="font-mono text-xs uppercase tracking-wider text-gold">Next case study</p>
-        <Link href={next.href} className="mt-2 block rounded-2xl border border-line bg-surface p-5 transition hover:border-accent">
-          <span className="text-lg font-semibold">{next.name} →</span>
-          <span className="mt-1 block text-sm text-muted">{next.subtitle}</span>
-        </Link>
-      </nav>
+      <a href={projectsHref} className="portfolio-text-link mt-14">View all projects</a>
     </article>
+    </CinematicMotion>
   );
 }

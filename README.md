@@ -1,6 +1,6 @@
 # Maruthi Yenumula: portfolio
 
-Next.js (App Router) + Tailwind CSS v4. Fully static, deploys to Vercel with no configuration.
+React + Next.js (App Router), Tailwind CSS v4 and GSAP. Prerendered portfolio pages with cinematic text reveals and dark/light themes.
 
 ```bash
 npm install
@@ -13,12 +13,11 @@ npm run build    # production build
 Everything on the site comes from `lib/data.ts`: profile, experience, projects, skills, education.
 
 - **Profile photo:** copy your photo into `public/` (for example `public/profile.jpg`) and set `profile.photo` to `"/profile.jpg"`. While it is `null` the hero shows the "MY" monogram.
-- **Internship length:** change `tenureMonths` at the top of `lib/data.ts`; the hero stat, experience card, About text and page description all follow it.
-- **Skills:** each group has a `strong` list (solid chips) and a `familiar` list (dashed chips).
+- **Skills:** edit the `strong` lists for Backend, Frontend, Databases and Testing & Tools to update the homepage.
 - **Resume button:** copy the resume PDF into `public/` and set `profile.resumeUrl` (for example `"/Maruthi_Yenumula_Resume.pdf"`). The buttons stay hidden while it is `null`.
-- **F2Home live link:** set `live` on the F2Home entry. Until then the card shows "Live demo coming soon".
-- **Screenshots:** WebP files in `public/projects/<project>/`. `scripts/media.mjs` and `scripts/gif.mjs` show how the originals were converted.
-- **Case studies:** `app/case-studies/hrms`, `app/case-studies/task-management` and `app/case-studies/bes`. The screens on those pages are mock-ups with sample data; do not add client screenshots.
+- **F2Home live link:** set `live` on the F2Home entry. The demo button appears when a URL is configured.
+- **Screenshots:** WebP files in `public/projects/<project>/`. `scripts/media.mjs` shows how the originals were converted.
+- **HRMS case study:** `app/case-studies/hrms` includes Task Management alongside the other HRMS modules. The interactive demos use sample data.
 
 ## Deploy
 

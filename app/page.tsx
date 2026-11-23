@@ -1,232 +1,132 @@
 import Image from "next/image";
 import Link from "next/link";
+import CinematicMotion from "@/components/CinematicMotion";
 import ProjectShowcase from "@/components/ProjectShowcase";
-import { Btn, Chip, Section } from "@/components/ui";
-import { education, experience, profile, projects, skills, stats } from "@/lib/data";
+import { Btn } from "@/components/ui";
+import { education, experience, profile, projects, skills } from "@/lib/data";
+
+const hrms = experience.projects[0];
+const modules = [
+  { name: "Task Management", detail: "Spring Boot API + React interface", anchor: "task-management" },
+  { name: "Leave & Comp-off", detail: "Requests, balances and approvals", anchor: "approvals" },
+  { name: "Attendance", detail: "Check-in, check-out and approvals", anchor: "approvals" },
+  { name: "Employee Advances", detail: "Approval, payment and recovery", anchor: "approvals" },
+  { name: "Claims", detail: "Submission through payment", anchor: "approvals" },
+];
 
 export default function Home() {
   return (
-    <>
-      <Hero />
-      <About />
-      <Experience />
-      <Projects />
-      <Skills />
-      <Education />
-      <Contact />
-    </>
-  );
-}
-
-function Hero() {
-  return (
-    <section className="relative overflow-hidden border-b border-line">
-      <div className="pointer-events-none absolute inset-0 -z-0 bg-[radial-gradient(60%_50%_at_80%_10%,color-mix(in_srgb,var(--accent)_16%,transparent),transparent)]" aria-hidden />
-      <div className="relative mx-auto grid max-w-6xl 2xl:max-w-7xl gap-12 px-4 py-16 sm:px-6 sm:py-24 lg:grid-cols-[1.4fr_1fr] lg:items-center">
-        <div>
-          <p className="inline-flex items-center gap-2 rounded-full border border-line bg-surface px-3 py-1 text-xs text-muted">
-            <span className="size-2 rounded-full bg-accent" aria-hidden />
-            Open to full-time roles · {profile.location}
-          </p>
-          <h1 className="mt-6 font-serif text-5xl leading-[1.05] tracking-tight sm:text-7xl xl:text-8xl">
-            Hi, I&apos;m {profile.name.split(" ")[0]}.
-            <br />
-            I build <em className="text-accent">full stack</em> web apps.
-          </h1>
-          <p className="mt-6 max-w-xl text-lg leading-relaxed text-muted">{profile.tagline}</p>
-
-          <div className="mt-8 flex flex-wrap gap-3">
-            <Btn href="#projects" variant="solid">See my projects</Btn>
-            {profile.resumeUrl && <Btn href={profile.resumeUrl}>Download resume</Btn>}
-            <Btn href="#contact">Contact me</Btn>
+    <CinematicMotion>
+      <div className="portfolio-shell">
+        <section className="cinema-hero" aria-labelledby="hero-title">
+          <div className="hero-topline">
+            <p className="eyebrow">Java full stack developer</p>
+            <p className="availability"><span aria-hidden />Open to full-time roles</p>
           </div>
-
-          <dl className="mt-12 grid max-w-xl grid-cols-3 gap-4">
-            {stats.map((s) => (
-              <div key={s.label}>
-                <dt className="sr-only">{s.label}</dt>
-                <dd className="font-serif text-4xl text-fg">{s.value}</dd>
-                <p className="mt-1 text-xs leading-snug text-muted" aria-hidden>{s.label}</p>
+          <h1 className="hero-title" id="hero-title" data-reveal="chars">MARUTHI</h1>
+          <div className="hero-composition">
+            <div className="hero-introduction">
+              <p className="eyebrow">Hello, I’m Maruthi Yenumula</p>
+              <h2 data-reveal="lines">Backend logic.<br /><span>Human interfaces.</span></h2>
+              <p className="hero-description" data-reveal="lines">I build Spring Boot APIs and React interfaces for the people on the other side of the screen.</p>
+              <div className="portfolio-actions">
+                <Btn href="#projects" variant="solid">Explore my work</Btn>
+                {profile.resumeUrl && <Btn href={profile.resumeUrl}>View résumé</Btn>}
               </div>
+              <p className="hero-location">{profile.location}</p>
+            </div>
+            <div className="hero-spotlight" data-enter>
+              {profile.photo ? (
+                <Image src={profile.photo} alt={profile.name} width={640} height={800} className="hero-portrait" />
+              ) : (
+                <div className="identity-art" aria-hidden="true">
+                  <span className="identity-name">MY</span>
+                  <span className="identity-outline">MY</span>
+                  <span className="identity-cross cross-top">+</span>
+                  <span className="identity-cross cross-bottom">+</span>
+                  <span className="identity-caption">JAVA / REACT</span>
+                </div>
+              )}
+              <p className="spotlight-caption">From database to the last interaction.</p>
+            </div>
+            <aside className="hero-index" aria-label="Explore my projects">
+              <p className="eyebrow">Inside my work</p>
+              <Link href="#hrms"><span className="index-kind">Client project</span><strong>HRMS</strong><span>Role-based workflows. Full-stack task management.</span></Link>
+              <Link href="#f2home"><span className="index-kind">Personal · Full stack</span><strong>F2Home</strong><span>Farmers, customers and a direct connection.</span></Link>
+              <Link href="#arogya-mitra"><span className="index-kind">Personal · Accessibility</span><strong>Arogya Mitra</strong><span>A Telugu, audio-first healthcare prototype.</span></Link>
+            </aside>
+          </div>
+          <div className="hero-bottom">
+            <p>Java 17 <span>/</span> Spring Boot <span>/</span> React <span>/</span> PostgreSQL</p>
+            <a href="#projects">Scroll to explore</a>
+          </div>
+        </section>
+
+        <section id="projects" className="portfolio-section" aria-labelledby="work-title">
+          <div className="section-heading">
+            <div><p className="eyebrow">A closer look</p><h2 id="work-title" data-reveal="chars">SELECTED <span>WORK.</span></h2></div>
+            <p>Real workflows.<br />Thoughtful interfaces.</p>
+          </div>
+          <article className="hrms-feature" id="hrms">
+            <div className="hrms-story">
+              <p className="eyebrow">Client project · {experience.company}</p>
+              <h3 data-reveal="chars">HRMS</h3>
+              <p className="project-subtitle">One system. Many responsibilities.</p>
+              <p data-reveal="lines">I build React screens and integrate Spring Boot APIs across the HRMS. For Task Management, I built the API and interface end to end.</p>
+              <ul className="stack-list" aria-label="HRMS technologies"><li>React</li><li>Spring Boot</li><li>RTK Query</li></ul>
+              <Link className="action action-solid" href={hrms.href}>Explore the case study</Link>
+            </div>
+            <div className="hrms-modules" data-enter>
+              <div className="module-heading"><span className="eyebrow">HRMS / Modules</span><span className="module-note">Explore my contributions</span></div>
+              {modules.map((module) => (
+                <a key={module.name} href={hrms.href + "#" + module.anchor}>
+                  <span><strong>{module.name}</strong><small>{module.detail}</small></span>
+                  <span className="module-plus" aria-hidden>+</span>
+                </a>
+              ))}
+              <p className="module-footnote">Six roles. Permissions at every step.</p>
+            </div>
+          </article>
+          {projects.map((project) => <ProjectShowcase key={project.slug} p={project} />)}
+        </section>
+
+        <section id="about" className="portfolio-section" aria-labelledby="profile-title">
+          <div className="section-heading">
+            <div><p className="eyebrow">The person behind the work</p><h2 id="profile-title" data-reveal="chars">ALWAYS <span>BUILDING.</span></h2></div>
+          </div>
+          <div className="experience-layout">
+            <div className="experience-intro">
+              <p className="statement" data-reveal="lines">I like the point where a complex workflow becomes simple to use.</p>
+              <p data-reveal="lines">I’m an MCA graduate building client-facing software at First Partner Consulting. Outside work, I explore marketplaces and accessible interfaces through my own projects.</p>
+            </div>
+            <div className="experience-record" id="experience" data-enter>
+              <p className="eyebrow">{experience.period}</p>
+              <h3>{experience.role}</h3>
+              <p className="company-name">{experience.company}</p>
+              <p>{experience.summary}</p>
+              <p className="record-location">{experience.location}</p>
+            </div>
+          </div>
+          <div id="skills" className="skill-columns">
+            {skills.filter((group) => ["Backend", "Frontend", "Databases", "Testing & Tools"].includes(group.group)).map((group) => (
+              <div key={group.group} data-enter><h3>{group.group}</h3><p>{group.strong.join(" · ")}</p></div>
             ))}
-          </dl>
-        </div>
-
-        <aside className="rounded-3xl border border-line bg-surface p-6 shadow-sm" aria-label="At a glance">
-          <div className="flex items-center gap-4">
-            {profile.photo ? (
-              <Image
-                src={profile.photo}
-                width={128}
-                height={128}
-                alt={`Portrait of ${profile.name}`}
-                priority
-                className="size-16 rounded-2xl object-cover"
-              />
-            ) : (
-              <div className="grid size-16 place-items-center rounded-2xl bg-accent font-serif text-3xl text-accent-fg">MY</div>
-            )}
-            <div>
-              <p className="text-lg font-semibold">{profile.name}</p>
-              <p className="text-sm text-muted">{profile.role}</p>
-            </div>
           </div>
-          <dl className="mt-6 space-y-4 text-sm">
-            <div>
-              <dt className="font-mono text-xs uppercase tracking-wider text-gold">Right now</dt>
-              <dd className="mt-1 text-muted">{experience.role} at {experience.company} ({experience.period})</dd>
-            </div>
-            <div>
-              <dt className="font-mono text-xs uppercase tracking-wider text-gold">Education</dt>
-              <dd className="mt-1 text-muted">
-                {education[0].short}, {education[0].school.split(",")[0]} ({education[0].period.slice(-4)})
-              </dd>
-            </div>
-            <div>
-              <dt className="font-mono text-xs uppercase tracking-wider text-gold">Core stack</dt>
-              <dd className="mt-2 flex flex-wrap gap-2">
-                {["Java 17", "Spring Boot", "React", "Next.js", "PostgreSQL", "Docker"].map((s) => (
-                  <Chip key={s}>{s}</Chip>
-                ))}
-              </dd>
-            </div>
-          </dl>
-        </aside>
-      </div>
-    </section>
-  );
-}
-
-function About() {
-  return (
-    <Section id="about" eyebrow="About" title="A developer who likes real users">
-      <div className="grid gap-6 lg:grid-cols-2">
-        {profile.about.map((p) => (
-          <p key={p} className="text-lg leading-relaxed text-muted">{p}</p>
-        ))}
-      </div>
-    </Section>
-  );
-}
-
-function Experience() {
-  return (
-    <Section id="experience" eyebrow="Experience" title="Real client work">
-      <div className="rounded-3xl border border-line bg-surface p-5 sm:p-8">
-        <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:justify-between">
-          <div>
-            <h3 className="text-xl font-semibold">{experience.role}</h3>
-            <p className="text-muted">{experience.company} · {experience.location}</p>
+          <div id="education" className="education-row">
+            <p className="eyebrow">Education</p>
+            {education.map((entry) => <div key={entry.degree}><h3>{entry.short}</h3><p>{entry.school}</p><span>{entry.period}</span></div>)}
           </div>
-          <p className="font-mono text-sm text-gold">{experience.period} · {experience.duration}</p>
-        </div>
-        <p className="mt-4 max-w-3xl leading-relaxed text-muted">{experience.summary}</p>
+        </section>
 
-        <div className="mt-8 grid gap-5 lg:grid-cols-2">
-          {experience.projects.map((p) => (
-            <div key={p.slug} className="flex flex-col rounded-2xl border border-line bg-bg p-5">
-              <h4 className="text-lg font-semibold">{p.name}</h4>
-              <p className="text-sm text-muted">{p.subtitle}</p>
-              <ul className="mt-4 space-y-2 text-sm leading-relaxed text-muted">
-                {p.bullets.map((b) => (
-                  <li key={b} className="flex gap-2">
-                    <span className="mt-2 size-1.5 shrink-0 rounded-full bg-accent" aria-hidden />
-                    <span>{b}</span>
-                  </li>
-                ))}
-              </ul>
-              <ul className="mt-4 flex flex-wrap gap-2">
-                {p.stack.map((s) => (
-                  <li key={s}><Chip>{s}</Chip></li>
-                ))}
-              </ul>
-              <Link href={p.href} className="mt-5 inline-flex w-fit items-center gap-1 text-sm font-medium text-accent hover:underline">
-                Read the case study →
-              </Link>
-            </div>
-          ))}
-        </div>
-      </div>
-    </Section>
-  );
-}
-
-function Projects() {
-  return (
-    <Section id="projects" eyebrow="Projects" title="Things I built on my own">
-      <div className="space-y-8">
-        {projects.map((p, i) => (
-          <ProjectShowcase key={p.slug} p={p} index={i} />
-        ))}
-      </div>
-    </Section>
-  );
-}
-
-function Skills() {
-  return (
-    <Section id="skills" eyebrow="Skills" title="Tools I work with">
-      <p className="-mt-6 mb-8 flex flex-wrap items-center gap-x-5 gap-y-2 text-sm text-muted">
-        <span className="inline-flex items-center gap-2">
-          <span className="rounded-full border border-accent bg-surface px-3 py-1 text-xs text-fg">Solid</span>
-          used in shipped projects or daily work
-        </span>
-        <span className="inline-flex items-center gap-2">
-          <Chip tone="familiar">Familiar</Chip>
-          learned or used on a smaller scale
-        </span>
-      </p>
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {skills.map((g) => (
-          <div key={g.group} className="rounded-2xl border border-line bg-surface p-5">
-            <h3 className="font-mono text-xs uppercase tracking-wider text-gold">{g.group}</h3>
-            <ul className="mt-3 flex flex-wrap gap-2">
-              {g.strong.map((s) => (
-                <li key={s}><Chip tone="strong">{s}</Chip></li>
-              ))}
-              {g.familiar.map((s) => (
-                <li key={s}><Chip tone="familiar">{s}</Chip></li>
-              ))}
-            </ul>
+        <section id="contact" className="portfolio-contact" aria-labelledby="contact-title">
+          <p className="eyebrow">Have a role in mind?</p>
+          <h2 id="contact-title" data-reveal="chars">LET’S <span>TALK.</span></h2>
+          <div className="contact-bottom">
+            <div><p>I’m looking for a Java full-stack role<br />with a team building something people use.</p><a className="contact-email" href={"mailto:" + profile.email}>{profile.email}</a></div>
+            <div className="portfolio-actions"><Btn href={profile.linkedin} external>LinkedIn</Btn><Btn href={profile.github} external>GitHub</Btn>{profile.resumeUrl && <Btn href={profile.resumeUrl} variant="solid">View résumé</Btn>}</div>
           </div>
-        ))}
+        </section>
       </div>
-    </Section>
-  );
-}
-
-function Education() {
-  return (
-    <Section id="education" eyebrow="Education" title="Where I studied">
-      <ol className="space-y-4">
-        {education.map((e) => (
-          <li key={e.degree} className="flex flex-col gap-1 rounded-2xl border border-line bg-surface p-5 sm:flex-row sm:items-center sm:justify-between">
-            <div>
-              <h3 className="font-semibold">{e.degree}</h3>
-              <p className="text-sm text-muted">{e.school}</p>
-            </div>
-            <p className="font-mono text-sm text-gold">{e.period}</p>
-          </li>
-        ))}
-      </ol>
-    </Section>
-  );
-}
-
-function Contact() {
-  return (
-    <Section id="contact" eyebrow="Contact" title="Let's talk">
-      <div className="rounded-3xl border border-line bg-surface p-6 sm:p-10">
-        <p className="max-w-2xl text-lg leading-relaxed text-muted">
-          I&apos;m looking for a Java full stack role where I can keep learning on a real product team. The fastest way to reach me is email.
-        </p>
-        <div className="mt-6 flex flex-wrap gap-3">
-          <Btn href={`mailto:${profile.email}`} variant="solid">{profile.email}</Btn>
-          <Btn href={profile.linkedin} external>LinkedIn ↗</Btn>
-          <Btn href={profile.github} external>GitHub ↗</Btn>
-          {profile.resumeUrl && <Btn href={profile.resumeUrl}>Download resume</Btn>}
-        </div>
-      </div>
-    </Section>
+    </CinematicMotion>
   );
 }

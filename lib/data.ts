@@ -21,16 +21,10 @@ export const profile = {
   tagline:
     "I build role-based web apps with Java, Spring Boot and React: clean APIs, careful validation and interfaces people can actually use.",
   about: [
-    `I'm an MCA graduate (2025) who has spent the last ${tenure} as an intern at First Partner Consulting, working on two client-facing systems at the same time: an HRMS and a Budget Estimation System.`,
-    "Outside work I build my own products end to end: a farmer-to-customer marketplace with OTP login, a Telugu audio-first health app for villages, and a small animation study. I like projects where the user is not a developer.",
+    `I'm an MCA graduate (2025) who has spent the last ${tenure} as an intern at First Partner Consulting, building a role-based HRMS.`,
+    "Outside work I build my own products end to end: a farmer-to-customer marketplace with OTP login, and a Telugu audio-first health app for villages. I like projects where the user is not a developer.",
   ],
 };
-
-export const stats = [
-  { value: tenureMonths, label: "months of real client work" },
-  { value: "2", label: "client systems in parallel" },
-  { value: "3", label: "personal projects built" },
-];
 
 export const experience = {
   company: "First Partner Consulting",
@@ -39,7 +33,7 @@ export const experience = {
   period: "Feb 2026 – Present",
   duration: tenure,
   summary:
-    "Working on client-facing systems since 26 Feb 2026, in Agile sprints with backend, QA and product teams: the company HRMS (frontend and API integration, plus the Task Management module end to end) and a Budget Estimation System.",
+    "Building an HRMS in Agile sprints with backend, QA and product teams. My work spans React interfaces and API integration across the HRMS, plus end-to-end development of its Task Management module.",
   projects: [
     {
       slug: "hrms",
@@ -55,32 +49,6 @@ export const experience = {
         "Handled the session end to end: JWT login, automatic logout and a session-expired modal when the token expires or the API returns 401.",
       ],
     },
-    {
-      slug: "task-management",
-      name: "Task Management",
-      subtitle: "Module inside the HRMS · backend and frontend",
-      href: "/case-studies/task-management",
-      stack: ["Java 17", "Spring Boot", "Spring Security", "Spring Data JPA", "Specifications", "React 19", "RTK Query", "Tailwind CSS"],
-      bullets: [
-        "Built both sides of the module: REST APIs and role rules in Spring Boot, and six views in React (Summary, List, Board, Calendar, Gantt, Workload) plus a Master Data tab.",
-        "Designed the task lifecycle (Defined, In Progress, Executed, Reviewed, Re-submitted, Approved) as a state machine, enforced on the server and mirrored in the UI so buttons never offer a move the API would refuse.",
-        "Wrote the role and ownership rules once in a server-side authorization class: who can see, edit, comment on and move a task depends on role, assignee, reviewer, approver and the reporting hierarchy.",
-        "Added recurring tasks, an activity log per task, duplicate, Excel export and task reports in the reporting engine, with dynamic JPA Specifications and paginated queries for the Board columns.",
-      ],
-    },
-    {
-      slug: "bes",
-      name: "BES",
-      subtitle: "Budget Estimation System · client: a retail manufacturer",
-      href: "/case-studies/bes",
-      stack: ["React.js", "Tailwind CSS", "Swagger REST APIs"],
-      bullets: [
-        "Built responsive React screens for service-wise budget estimation and payment tracking.",
-        "Created dynamic forms that change their fields and sections based on the selected service type.",
-        "Integrated the screens with existing REST APIs to fetch, submit and refresh estimate and payment data.",
-        "Built reusable components, client-side validation and clear loading, success and error states.",
-      ],
-    },
   ],
 };
 
@@ -89,8 +57,6 @@ export type Shot = {
   w: number;
   h: number;
   caption: string;
-  /** Static frame shown instead of an animation when the visitor prefers reduced motion. */
-  still?: string;
 };
 
 export type Project = {
@@ -106,7 +72,6 @@ export type Project = {
   repo: string;
   live: string | null;
   shots: Shot[];
-  animated?: boolean;
   phone?: boolean;
 };
 
@@ -114,7 +79,7 @@ export const projects: Project[] = [
   {
     slug: "f2home",
     name: "F2Home",
-    tag: "Full stack · Flagship",
+    tag: "Full stack",
     year: "2026",
     pitch:
       "A farmer-to-customer marketplace where farmers list produce, customers buy directly, and an admin approves new farmers.",
@@ -145,8 +110,8 @@ export const projects: Project[] = [
     repo: "https://github.com/maruthi-user/F2Home",
     live: null,
     shots: [
-      { src: "/projects/f2home/signup.webp", w: 1600, h: 797, caption: "Sign-up: phone number, role choice, then OTP verification" },
       { src: "/projects/f2home/marketplace.webp", w: 1600, h: 799, caption: "Marketplace with category filters and live counts" },
+      { src: "/projects/f2home/signup.webp", w: 1600, h: 797, caption: "Sign-up: phone number, role choice, then OTP verification" },
       { src: "/projects/f2home/cart.webp", w: 1600, h: 801, caption: "Customer cart with minimum items and minimum value rules" },
       { src: "/projects/f2home/farmer-marketplace.webp", w: 1600, h: 795, caption: "Farmer view of their own live listings" },
       { src: "/projects/f2home/farmer-orders.webp", w: 1600, h: 799, caption: "Farmer order requests: accept or reject (dark mode)" },
@@ -157,7 +122,7 @@ export const projects: Project[] = [
   {
     slug: "arogya-mitra",
     name: "Arogya Mitra",
-    tag: "Frontend · Accessibility",
+    tag: "Accessibility prototype",
     year: "2026",
     pitch:
       "A Telugu, audio-first app that helps villagers find nearby doctors, clinics and pharmacies, built for people who may not read well.",
@@ -176,34 +141,12 @@ export const projects: Project[] = [
     live: "https://arogya-mitra-lime.vercel.app/",
     phone: true,
     shots: [
+      { src: "/projects/arogya/home.webp", w: 638, h: 991, caption: "Home: emergency 108, doctor, medicine, bookings" },
       { src: "/projects/arogya/language.webp", w: 800, h: 419, caption: "Choose Telugu or English" },
       { src: "/projects/arogya/village.webp", w: 800, h: 718, caption: "Pick your village" },
-      { src: "/projects/arogya/home.webp", w: 638, h: 991, caption: "Home: emergency 108, doctor, medicine, bookings" },
       { src: "/projects/arogya/symptoms.webp", w: 649, h: 956, caption: "Symptoms and highlighted danger signs" },
       { src: "/projects/arogya/doctors.webp", w: 660, h: 954, caption: "Nearby doctors with call and book buttons" },
       { src: "/projects/arogya/booking.webp", w: 648, h: 980, caption: "Choose a day and time slot" },
-    ],
-  },
-  {
-    slug: "lotus-ui",
-    name: "Lotus UI",
-    tag: "Frontend · Animation",
-    year: "2026",
-    pitch:
-      "An interactive lotus that grows from an emerald bud into a golden bloom: a quiet study of colour, time and patience.",
-    why: "I wanted to practise pure front-end craft: SVG and canvas animation, colour and motion, with no UI library doing the work for me.",
-    highlights: [
-      "The lotus is drawn and animated in SVG with hand-written JavaScript; drifting light particles run on a separate canvas layer.",
-      "Tailwind CSS v4 with Vite, custom fonts and a dark colour scheme.",
-      "Deployed on Vercel as a static site.",
-    ],
-    status: "Finished as a small study.",
-    stack: ["JavaScript", "SVG", "Canvas", "Vite", "Tailwind CSS v4", "Vercel"],
-    repo: "https://github.com/maruthi-user/lotus-UI",
-    live: "https://lotus-ui-fx6c.vercel.app/",
-    animated: true,
-    shots: [
-      { src: "/projects/lotus/bloom.webp", still: "/projects/lotus/still.webp", w: 720, h: 362, caption: "The bloom animation, recorded from the live site" },
     ],
   },
 ];

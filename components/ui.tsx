@@ -23,11 +23,8 @@ export function Chip({ children, tone = "default" }: { children: ReactNode; tone
 type BtnProps = { href: string; children: ReactNode; variant?: "solid" | "outline"; external?: boolean };
 
 export function Btn({ href, children, variant = "outline", external }: BtnProps) {
-  const base = "inline-flex items-center gap-2 rounded-full px-5 py-2.5 text-sm font-medium transition";
-  const style =
-    variant === "solid"
-      ? "bg-accent text-accent-fg hover:opacity-90"
-      : "border border-line bg-surface text-fg hover:border-accent";
+  const base = "action";
+  const style = variant === "solid" ? "action-solid" : "action-outline";
   return (
     <a href={href} className={`${base} ${style}`} {...(external ? { target: "_blank", rel: "noreferrer" } : {})}>
       {children}

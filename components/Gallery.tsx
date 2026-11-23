@@ -1,25 +1,16 @@
 "use client";
 
 import Image from "next/image";
-import { useRef, useState, useSyncExternalStore } from "react";
+import { useRef, useState } from "react";
 import type { Shot } from "@/lib/data";
 
-type Props = { shots: Shot[]; alt: string; animated?: boolean };
+type Props = { shots: Shot[]; alt: string };
 
-const reduceQuery = "(prefers-reduced-motion: reduce)";
-function subscribeReduced(cb: () => void) {
-  const mq = matchMedia(reduceQuery);
-  mq.addEventListener("change", cb);
-  return () => mq.removeEventListener("change", cb);
-}
-
-export default function Gallery({ shots, alt, animated }: Props) {
+export default function Gallery({ shots, alt }: Props) {
   const [i, setI] = useState(0);
   const dialog = useRef<HTMLDialogElement>(null);
-  const reduced = useSyncExternalStore(subscribeReduced, () => matchMedia(reduceQuery).matches, () => false);
   const shot = shots[i];
-  // Visitors who ask for reduced motion get the still frame instead of the animation.
-  const src = reduced && shot.still ? shot.still : shot.src;
+  const src = shot.src;
   const many = shots.length > 1;
 
   const go = (d: number) => setI((v) => (v + d + shots.length) % shots.length);
@@ -30,7 +21,7 @@ export default function Gallery({ shots, alt, animated }: Props) {
         <button
           type="button"
           onClick={() => dialog.current?.showModal()}
-          className="flex h-[300px] w-full cursor-zoom-in items-center justify-center p-3 sm:h-[460px] xl:h-[540px] 2xl:h-[600px]"
+          className="flex h-[230px] w-full cursor-zoom-in items-center justify-center p-3 sm:h-[300px]"
           aria-label="Enlarge image"
         >
           <Image
@@ -56,7 +47,6 @@ export default function Gallery({ shots, alt, animated }: Props) {
       </div>
 
       <p className="mt-3 text-sm text-muted" aria-live="polite">
-        {animated && <span className="mr-2 rounded bg-accent px-1.5 py-0.5 text-xs font-medium text-accent-fg">Animation</span>}
         {shot.caption}
         {many && <span className="ml-2 text-xs">({i + 1}/{shots.length})</span>}
       </p>
