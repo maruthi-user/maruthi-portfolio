@@ -1,6 +1,7 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
+import { useRef, useSyncExternalStore, type ReactNode } from "react";
+import { getPortfolioDesign, getServerDesign, subscribePortfolioDesign } from "@/lib/design";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -10,11 +11,13 @@ gsap.registerPlugin(useGSAP, ScrollTrigger, SplitText);
 
 export default function CinematicMotion({ children }: { children: ReactNode }) {
   const container = useRef<HTMLDivElement>(null);
+  const design = useSyncExternalStore(subscribePortfolioDesign, getPortfolioDesign, getServerDesign);
 
   useGSAP(() => {
     const media = gsap.matchMedia();
     media.add("(prefers-reduced-motion: no-preference)", () => {
       container.current?.querySelectorAll<HTMLElement>("[data-reveal]").forEach((element) => {
+        if (!element.getClientRects().length) return;
         const characters = element.dataset.reveal === "chars";
         SplitText.create(element, {
           type: characters ? "words,chars" : "lines",
@@ -34,6 +37,7 @@ export default function CinematicMotion({ children }: { children: ReactNode }) {
       });
 
       container.current?.querySelectorAll<HTMLElement>("[data-enter]").forEach((element) => {
+        if (!element.getClientRects().length) return;
         gsap.from(element, {
           autoAlpha: 0,
           y: 32,
@@ -56,7 +60,7 @@ export default function CinematicMotion({ children }: { children: ReactNode }) {
       currentContainer?.removeEventListener("toggle", refresh, true);
       media.revert();
     };
-  }, { scope: container });
+  }, { scope: container, dependencies: [design], revertOnUpdate: true });
 
   return <div ref={container}>{children}</div>;
 }

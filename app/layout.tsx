@@ -4,6 +4,8 @@ import "@fontsource/barlow-condensed/700.css";
 import "@fontsource/dm-sans/400.css";
 import "@fontsource/dm-sans/500.css";
 import "@fontsource/dm-sans/600.css";
+import "@fontsource/instrument-serif/400.css";
+import "@fontsource/instrument-serif/400-italic.css";
 import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
@@ -15,12 +17,13 @@ export const metadata: Metadata = {
 };
 
 // Sets the theme class before first paint so there is no light/dark flash.
-const themeScript = `var t;try{t=localStorage.getItem("theme")}catch(e){}document.documentElement.classList.toggle("dark",t==="dark"||(t!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches));`;
+const themeScript = `var t,d;try{t=localStorage.getItem("theme");d=localStorage.getItem("portfolio-design")}catch(e){}document.documentElement.classList.toggle("dark",t==="dark"||(t!=="light"&&matchMedia("(prefers-color-scheme: dark)").matches));document.documentElement.dataset.design=d==="indigo"?"indigo":"midnight";`;
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html
       lang="en"
+      data-design="midnight"
       suppressHydrationWarning
       className="h-full antialiased"
     >

@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import CinematicMotion from "@/components/CinematicMotion";
 import ProjectShowcase from "@/components/ProjectShowcase";
@@ -23,38 +22,23 @@ export default function Home() {
             <p className="eyebrow">Java full stack developer</p>
             <p className="availability"><span aria-hidden />Open to full-time roles</p>
           </div>
-          <h1 className="hero-title" id="hero-title" data-reveal="chars">MARUTHI</h1>
+          <h1 className="hero-title" id="hero-title">
+            <span className="hero-name" data-reveal="chars">MARUTHI</span>
+            <span className="hero-surname">YENUMULA</span>
+            <span className="studio-name" data-reveal="chars">Maruthi Yenumula</span>
+          </h1>
           <div className="hero-composition">
             <div className="hero-introduction">
-              <p className="eyebrow">Hello, I’m Maruthi Yenumula</p>
-              <h2 data-reveal="lines">Backend logic.<br /><span>Human interfaces.</span></h2>
-              <p className="hero-description" data-reveal="lines">I build Spring Boot APIs and React interfaces for the people on the other side of the screen.</p>
+              <h2 className="midnight-headline" data-reveal="lines">Java Full Stack <span>Developer.</span></h2>
+              <h2 className="studio-headline" data-reveal="lines">Thoughtful interfaces.<br />Reliable systems.</h2>
+              <p className="hero-description" data-reveal="lines">Spring Boot APIs and React interfaces, built around real people.</p>
               <div className="portfolio-actions">
                 <Btn href="#projects" variant="solid">Explore my work</Btn>
                 {profile.resumeUrl && <Btn href={profile.resumeUrl}>View résumé</Btn>}
               </div>
               <p className="hero-location">{profile.location}</p>
             </div>
-            <div className="hero-spotlight" data-enter>
-              {profile.photo ? (
-                <Image src={profile.photo} alt={profile.name} width={640} height={800} className="hero-portrait" />
-              ) : (
-                <div className="identity-art" aria-hidden="true">
-                  <span className="identity-name">MY</span>
-                  <span className="identity-outline">MY</span>
-                  <span className="identity-cross cross-top">+</span>
-                  <span className="identity-cross cross-bottom">+</span>
-                  <span className="identity-caption">JAVA / REACT</span>
-                </div>
-              )}
-              <p className="spotlight-caption">From database to the last interaction.</p>
-            </div>
-            <aside className="hero-index" aria-label="Explore my projects">
-              <p className="eyebrow">Inside my work</p>
-              <Link href="#hrms"><span className="index-kind">Client project</span><strong>HRMS</strong><span>Role-based workflows. Full-stack task management.</span></Link>
-              <Link href="#f2home"><span className="index-kind">Personal · Full stack</span><strong>F2Home</strong><span>Farmers, customers and a direct connection.</span></Link>
-              <Link href="#arogya-mitra"><span className="index-kind">Personal · Accessibility</span><strong>Arogya Mitra</strong><span>A Telugu, audio-first healthcare prototype.</span></Link>
-            </aside>
+            <div className="hero-art" aria-hidden="true"><span /><span /></div>
           </div>
           <div className="hero-bottom">
             <p>Java 17 <span>/</span> Spring Boot <span>/</span> React <span>/</span> PostgreSQL</p>
@@ -64,7 +48,7 @@ export default function Home() {
 
         <section id="projects" className="portfolio-section" aria-labelledby="work-title">
           <div className="section-heading">
-            <div><p className="eyebrow">A closer look</p><h2 id="work-title" data-reveal="chars">SELECTED <span>WORK.</span></h2></div>
+            <div><p className="eyebrow">A closer look</p><h2 id="work-title" data-reveal="chars">Selected <span>work.</span></h2></div>
             <p>Real workflows.<br />Thoughtful interfaces.</p>
           </div>
           <article className="hrms-feature" id="hrms">
@@ -87,12 +71,14 @@ export default function Home() {
               <p className="module-footnote">Six roles. Permissions at every step.</p>
             </div>
           </article>
-          {projects.map((project) => <ProjectShowcase key={project.slug} p={project} />)}
+          <div className="personal-projects">
+            {projects.map((project) => <ProjectShowcase key={project.slug} p={project} />)}
+          </div>
         </section>
 
         <section id="about" className="portfolio-section" aria-labelledby="profile-title">
           <div className="section-heading">
-            <div><p className="eyebrow">The person behind the work</p><h2 id="profile-title" data-reveal="chars">ALWAYS <span>BUILDING.</span></h2></div>
+            <div><p className="eyebrow">The person behind the work</p><h2 id="profile-title" data-reveal="chars">Always <span>building.</span></h2></div>
           </div>
           <div className="experience-layout">
             <div className="experience-intro">
@@ -120,7 +106,7 @@ export default function Home() {
 
         <section id="contact" className="portfolio-contact" aria-labelledby="contact-title">
           <p className="eyebrow">Have a role in mind?</p>
-          <h2 id="contact-title" data-reveal="chars">LET’S <span>TALK.</span></h2>
+          <h2 id="contact-title" data-reveal="chars">Let’s <span>talk.</span></h2>
           <div className="contact-bottom">
             <div><p>I’m looking for a Java full-stack role<br />with a team building something people use.</p><a className="contact-email" href={"mailto:" + profile.email}>{profile.email}</a></div>
             <div className="portfolio-actions"><Btn href={profile.linkedin} external>LinkedIn</Btn><Btn href={profile.github} external>GitHub</Btn>{profile.resumeUrl && <Btn href={profile.resumeUrl} variant="solid">View résumé</Btn>}</div>

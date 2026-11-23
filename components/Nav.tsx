@@ -4,6 +4,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useRef, useState } from "react";
 import ThemeToggle from "./ThemeToggle";
+import DesignSelector from "./DesignSelector";
 import { profile } from "@/lib/data";
 
 const links = [
@@ -66,6 +67,7 @@ export default function Nav() {
         </ul>
         <div className="nav-actions">
           <ThemeToggle />
+          <DesignSelector />
           {profile.resumeUrl && <a className="nav-resume" href={profile.resumeUrl}>Résumé</a>}
           <button ref={menuButton} type="button" className="menu-toggle" aria-label={open ? "Close menu" : "Open menu"} aria-expanded={open} aria-controls="mobile-navigation" onClick={() => setOpen((value) => !value)}>
             <span aria-hidden>{open ? "×" : "☰"}</span>
