@@ -14,7 +14,7 @@ Everything on the site comes from `lib/data.ts`: profile, experience, projects, 
 
 The displayed experience duration is calculated automatically from February 2026, using calendar months in India time. It updates on page load and at month boundaries without a rebuild. The PDF uses the joining date instead of a duration so it does not become stale.
 
-- **Profile photo:** the hero uses `public/profile-professional.png`, configured through `profile.photo`. Set it to `null` to hide the image.
+- **Profile photo:** the hero uses `public/profile-office.png`, configured through `profile.photo`. Set it to `null` to hide the image.
 - **Skills:** every group with a nonempty `strong` list appears on the homepage, including DevOps & Cloud.
 - **Resume button:** copy the resume PDF into `public/` and set `profile.resumeUrl` (for example `"/Maruthi_Yenumula_Resume.pdf"`). The buttons stay hidden while it is `null`.
 - **F2Home live link:** set `live` on the F2Home entry. The demo button appears when a URL is configured.

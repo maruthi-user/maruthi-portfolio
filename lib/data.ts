@@ -9,7 +9,7 @@ export const profile = {
   email: "maruthiy310@gmail.com",
   github: "https://github.com/maruthi-user",
   linkedin: "https://www.linkedin.com/in/maruthi-y-5512a4423",
-  photo: "/profile-professional.png" as string | null,
+  photo: "/profile-office.png" as string | null,
   // Put the updated resume PDF in /public and set e.g. "/Maruthi_Yenumula_Resume.pdf".
   // While this is null the "Download resume" buttons are hidden.
   resumeUrl: "/Maruthi_Yenumula_Resume.pdf" as string | null,

@@ -45,7 +45,7 @@ export default function Home() {
             </div>
             {profile.photo && (
               <figure className="profile-portrait">
-                <Image src={profile.photo} alt="Maruthi Yenumula" width={1254} height={1254} sizes="(max-width: 700px) 240px, 320px" loading="eager" />
+                <Image src={profile.photo} alt="Maruthi Yenumula" width={1448} height={1086} sizes="(max-width: 700px) 240px, 320px" loading="eager" />
                 <figcaption><strong>{profile.name}</strong><span>{profile.role} · {profile.location}</span></figcaption>
               </figure>
             )}
