@@ -10,10 +10,21 @@ import "./globals.css";
 import Nav from "@/components/Nav";
 import Footer from "@/components/Footer";
 import { profile } from "@/lib/data";
+import { siteUrl } from "@/lib/site";
 
 export const metadata: Metadata = {
+  metadataBase: new URL(siteUrl),
   title: `${profile.name} | ${profile.role}`,
   description: `${profile.name} is a ${profile.role} in ${profile.location}. Explore his HRMS client work, F2Home marketplace and Arogya Mitra accessibility prototype.`,
+  openGraph: {
+    type: "website",
+    siteName: `${profile.name} | Developer Portfolio`,
+    title: `${profile.name} | ${profile.role}`,
+    description: "Spring Boot APIs, React interfaces, and real workflows. Explore HRMS, F2Home and Arogya Mitra.",
+    images: [{ url: "/profile-professional.png", width: 1254, height: 1254, alt: profile.name }],
+  },
+  twitter: { card: "summary", title: `${profile.name} | ${profile.role}`, description: "Java, Spring Boot and React developer. Explore my projects and HRMS case study.", images: ["/profile-professional.png"] },
+  icons: { icon: "/icon.svg" },
 };
 
 // Sets the theme class before first paint so there is no light/dark flash.

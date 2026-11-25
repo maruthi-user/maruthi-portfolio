@@ -1,9 +1,6 @@
 // All portfolio content lives here. Edit this file to update the site.
 
-// Update this one value as your internship time grows; the hero stat, the experience card,
-// the About text and the page description all read from it.
-const tenureMonths = "8+";
-export const tenure = `${tenureMonths} months`;
+import { experiencePeriod } from "./experience";
 
 export const profile = {
   name: "Maruthi Yenumula",
@@ -12,16 +9,14 @@ export const profile = {
   email: "maruthiy310@gmail.com",
   github: "https://github.com/maruthi-user",
   linkedin: "https://www.linkedin.com/in/maruthi-y-5512a4423",
-  // Put your photo in /public (square or portrait, at least 600x600) and set e.g. "/profile.jpg".
-  // While this is null the hero shows the "MY" monogram instead.
-  photo: null as string | null,
+  photo: "/profile-professional.png" as string | null,
   // Put the updated resume PDF in /public and set e.g. "/Maruthi_Yenumula_Resume.pdf".
   // While this is null the "Download resume" buttons are hidden.
   resumeUrl: "/Maruthi_Yenumula_Resume.pdf" as string | null,
   tagline:
-    "I build role-based web apps with Java, Spring Boot and React: clean APIs, careful validation and interfaces people can actually use.",
+    "I build Spring Boot APIs and React applications. At First Partner Consulting, I contribute to an HRMS and own its Task Management module end to end.",
   about: [
-    `I'm an MCA graduate (2025) who has spent the last ${tenure} as an intern at First Partner Consulting, building a role-based HRMS.`,
+    "I'm an MCA graduate (2025) and a Software Developer Intern / Trainee at First Partner Consulting, Hyderabad, since February 2026. I build React workflows across the HRMS and develop its Task Management API and interface end to end.",
     "Outside work I build my own products end to end: a farmer-to-customer marketplace with OTP login, and a Telugu audio-first health app for villages. I like projects where the user is not a developer.",
   ],
 };
@@ -30,10 +25,14 @@ export const experience = {
   company: "First Partner Consulting",
   role: "Software Developer Intern / Trainee",
   location: "Hyderabad, India",
-  period: "Feb 2026 – Present",
-  duration: tenure,
+  period: experiencePeriod,
   summary:
     "Building an HRMS in Agile sprints with backend, QA and product teams. My work spans React interfaces and API integration across the HRMS, plus end-to-end development of its Task Management module.",
+  contributions: [
+    "Delivered the Task Management API and React interface, with six views covering planning, tracking and workload.",
+    "Built role-aware screens and approval queues across leave, attendance, advances, claims and daily status reports.",
+    "Created shared tables, filters and saved column layouts for use across HRMS modules.",
+  ],
   projects: [
     {
       slug: "hrms",
@@ -68,6 +67,8 @@ export type Project = {
   why: string;
   highlights: string[];
   status: string;
+  decision: string;
+  nextStep: string;
   stack: string[];
   repo: string;
   live: string | null;
@@ -93,6 +94,8 @@ export const projects: Project[] = [
     ],
     status:
       "Auth and user backend run on Spring Boot and PostgreSQL. Marketplace, cart and order data currently live client-side (IndexedDB); moving them onto the API is the next step.",
+    decision: "OTP sign-in lets farmers use a phone number instead of remembering a password. Rate limits protect the OTP endpoints. The current IndexedDB marketplace makes the interface demonstrable, but orders are not yet shared between devices.",
+    nextStep: "Move listings, carts and orders onto the API before treating the marketplace as a multi-user product.",
     stack: [
       "Java 17",
       "Spring Boot",
@@ -136,6 +139,8 @@ export const projects: Project[] = [
     ],
     status:
       "Frontend only: all data is stored in the browser (localStorage) and the doctor list is sample data.",
+    decision: "Recorded prompts and a speaker button make the interface usable without relying only on reading. Voice search adds a second input option; icons and touch controls remain available when speech recognition is unavailable.",
+    nextStep: "Validate the flows with Telugu-speaking users, then connect verified provider and booking data. The current prototype does not make real appointments.",
     stack: ["HTML5", "CSS3", "JavaScript (ES6+)", "Web Speech API", "localStorage", "Node.js"],
     repo: "https://github.com/maruthi-user/arogya-mitra",
     live: "https://arogya-mitra-lime.vercel.app/",

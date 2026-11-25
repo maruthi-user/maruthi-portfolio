@@ -1,10 +1,14 @@
 import Link from "next/link";
+import Image from "next/image";
+import type { Metadata } from "next";
 import CinematicMotion from "@/components/CinematicMotion";
+import ExperienceDuration from "@/components/ExperienceDuration";
 import ProjectShowcase from "@/components/ProjectShowcase";
 import { Btn } from "@/components/ui";
 import { education, experience, profile, projects, skills } from "@/lib/data";
 
 const hrms = experience.projects[0];
+export const metadata: Metadata = { alternates: { canonical: "/" } };
 const modules = [
   { name: "Task Management", detail: "Spring Boot API + React interface", anchor: "task-management" },
   { name: "Leave & Comp-off", detail: "Requests, balances and approvals", anchor: "approvals" },
@@ -31,14 +35,20 @@ export default function Home() {
             <div className="hero-introduction">
               <h2 className="midnight-headline" data-reveal="lines">Java Full Stack <span>Developer.</span></h2>
               <h2 className="studio-headline" data-reveal="lines">Thoughtful interfaces.<br />Reliable systems.</h2>
-              <p className="hero-description" data-reveal="lines">Spring Boot APIs and React interfaces, built around real people.</p>
+              <p className="hero-description" data-reveal="lines">{profile.tagline}</p>
               <div className="portfolio-actions">
                 <Btn href="#projects" variant="solid">Explore my work</Btn>
                 {profile.resumeUrl && <Btn href={profile.resumeUrl}>View résumé</Btn>}
               </div>
               <p className="hero-location">{profile.location}</p>
+              <p className="experience-duration"><ExperienceDuration /></p>
             </div>
-            <div className="hero-art" aria-hidden="true"><span /><span /></div>
+            {profile.photo && (
+              <figure className="profile-portrait">
+                <Image src={profile.photo} alt="Maruthi Yenumula" width={1254} height={1254} sizes="(max-width: 700px) 240px, 320px" loading="eager" />
+                <figcaption><strong>{profile.name}</strong><span>{profile.role} · {profile.location}</span></figcaption>
+              </figure>
+            )}
           </div>
           <div className="hero-bottom">
             <p>Java 17 <span>/</span> Spring Boot <span>/</span> React <span>/</span> PostgreSQL</p>
@@ -83,18 +93,21 @@ export default function Home() {
           <div className="experience-layout">
             <div className="experience-intro">
               <p className="statement" data-reveal="lines">I like the point where a complex workflow becomes simple to use.</p>
-              <p data-reveal="lines">I’m an MCA graduate building client-facing software at First Partner Consulting. Outside work, I explore marketplaces and accessible interfaces through my own projects.</p>
+              {profile.about.map((paragraph) => <p key={paragraph} data-reveal="lines">{paragraph}</p>)}
             </div>
             <div className="experience-record" id="experience" data-enter>
               <p className="eyebrow">{experience.period}</p>
+              <p className="experience-duration"><ExperienceDuration /></p>
               <h3>{experience.role}</h3>
               <p className="company-name">{experience.company}</p>
               <p>{experience.summary}</p>
+              <h4 className="contribution-heading">Selected contributions</h4>
+              <ul className="contribution-list">{experience.contributions.map((item) => <li key={item}>{item}</li>)}</ul>
               <p className="record-location">{experience.location}</p>
             </div>
           </div>
           <div id="skills" className="skill-columns">
-            {skills.filter((group) => ["Backend", "Frontend", "Databases", "Testing & Tools"].includes(group.group)).map((group) => (
+            {skills.filter((group) => group.strong.length > 0).map((group) => (
               <div key={group.group} data-enter><h3>{group.group}</h3><p>{group.strong.join(" · ")}</p></div>
             ))}
           </div>

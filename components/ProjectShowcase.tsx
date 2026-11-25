@@ -35,7 +35,13 @@ export default function ProjectShowcase({ p }: { p: Project }) {
       <details className="project-details">
         <summary>Explore the build &amp; screenshots<span className="detail-symbol" aria-hidden>+</span></summary>
         <div className="project-detail-content">
-          <div className="project-notes"><h4>Why I built it</h4><p>{p.why}</p><h4>What I implemented</h4><ul>{p.highlights.map((item) => <li key={item}>{item}</li>)}</ul><h4>Technologies</h4><p>{p.stack.join(" · ")}</p></div>
+          <div className="project-notes">
+            <h4>Why I built it</h4><p>{p.why}</p>
+            <h4>What I implemented</h4><ul>{p.highlights.map((item) => <li key={item}>{item}</li>)}</ul>
+            <h4>Engineering decision &amp; tradeoff</h4><p>{p.decision}</p>
+            <h4>Next step</h4><p>{p.nextStep}</p>
+            <h4>Technologies</h4><p>{p.stack.join(" · ")}</p>
+          </div>
           <Gallery shots={p.shots} alt={p.name} />
         </div>
       </details>

@@ -4,8 +4,10 @@ import HrmsMock from "@/components/HrmsMock";
 import InfoGrid from "@/components/InfoGrid";
 import RoleAccessMock from "@/components/RoleAccessMock";
 import TaskWorkflowMock from "@/components/TaskWorkflowMock";
+import { experience } from "@/lib/data";
 
 export const metadata: Metadata = {
+  alternates: { canonical: "/case-studies/hrms" },
   title: "HRMS case study | Maruthi Yenumula",
   description: "A role-based HRMS: leave, attendance, advances, claims and approvals, plus a full-stack Task Management module.",
 };
@@ -16,8 +18,8 @@ export default function HrmsCaseStudy() {
       title="HRMS"
       subtitle="A role-based Human Resource Management System for First Partner Consulting."
       meta={[
-        { label: "My role", value: "Software Developer Intern / Trainee" },
-        { label: "Period", value: "Feb 2026 – Present" },
+        { label: "My role", value: experience.role },
+        { label: "Period", value: experience.period },
         { label: "Focus", value: "Frontend, API integration, role-based UI" },
         { label: "Full-stack module", value: "Task Management" },
       ]}
@@ -39,6 +41,16 @@ export default function HrmsCaseStudy() {
         { title: "Working in a shared codebase", text: "The repository has several developers and a backend team moving at the same time, so I leaned on the Swagger contracts, shared components and small, focused commits to keep the frontend and API aligned." },
       ]}
       sections={[
+        {
+          id: "decisions",
+          title: "Engineering decisions and tradeoffs",
+          intro: "The challenge was keeping role, ownership and workflow state consistent across the interface and API. These choices explain how I approached it.",
+          node: <InfoGrid cols={3} items={[
+            { title: "Authorize on the server", text: "The React permission map shapes navigation and available actions. In Task Management, the Spring Boot API also checks role, ownership and reporting relationships before status transitions. This repeats some checks across layers, but a hidden button alone cannot protect an endpoint." },
+            { title: "Configure shared tables", text: "A shared table and filter system gives modules consistent pagination, column layouts and filtering. Each module supplies its own configuration. The tradeoff is keeping the shared component focused as module-specific requirements grow." },
+            { title: "Guard actions while processing", text: "A processing lock blocks repeated client submissions while approvals or exports are running. This improves feedback and prevents repeated clicks; the client lock does not replace server validation or transaction handling." },
+          ]} />,
+        },
         {
           id: "task-management",
           title: "Task Management",
